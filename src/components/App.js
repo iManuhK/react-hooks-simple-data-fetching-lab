@@ -2,15 +2,18 @@
 import React,{useEffect,useState} from 'react'
 
 function App() {
-    const [dog,setDogs] = useState([])
+    const [dog,setDogs] = useState(null)
 useEffect(()=>{
     fetch("https://dog.ceo/api/breeds/image/random")
     .then(res=>res.json())
-    .then(data=>setDogs(data))
+    .then(data=>setDogs(data.message))
 },[])
 
+if(!dog){
+    return <p>Loading...</p>
+}
   return (<div>
-{!dog ? <p>Loading...</p> : <img src={dog.message} alt="A Random Dog" /> }
+<img src={dog} alt="A Random Dog" />
   </div>
     )
 }
